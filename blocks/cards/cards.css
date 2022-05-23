@@ -1,4 +1,4 @@
-.grid-elements {
+.cards {
   width: 100%;
   list-style-type: none;
   padding: 0;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 900px) {
-  .grid-elements {
+  .cards {
     grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   }
 }
