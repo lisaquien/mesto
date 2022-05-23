@@ -6,6 +6,9 @@
   border-radius: 2px;
   margin: 47px auto 0;
   padding: 0;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.1;
 }
 
 .form__button:hover {

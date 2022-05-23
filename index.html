@@ -18,57 +18,57 @@
           <div class="profile__content">
             <div class="profile__description">
               <div class="profile__personal-info">
-                <h2 class="profile__name">Жак-Ив Кусто</h2>
-                <img class="profile__button profile__button_type_edit" src="images/edit-button.svg" alt="Иконка Редактировать профиль">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <button class="profile__button profile__button_type_edit"></button>
               </div>
               <p class="profile__about">Исследователь океана</p>
             </div>
-            <img class="profile__button profile__button_type_add" src="images/add-button.svg" alt="иконка Добавить">
+            <button class="profile__button profile__button_type_add"></button>
           </div>
         </div>
       </section>
       <section class="elements">
-        <ul class="grid-elements">
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-rostov-on-don.jpg" alt="Ростов-на-Дону">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Ростов-на-Дону</p>
-              <button class="grid-element__like-button"></button>
+        <ul class="cards">
+          <li class="card">
+            <img class="card__image" src="images/element-rostov-on-don.jpg" alt="Ростов-на-Дону">
+            <div class="card__panel">
+              <p class="card__placename">Ростов-на-Дону</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-kabansky.jpg" alt="Кабанский район">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Кабанский район</p>
-              <button class="grid-element__like-button"></button>
+          <li class="card">
+            <img class="card__image" src="images/element-kabansky.jpg" alt="Кабанский район">
+            <div class="card__panel">
+              <p class="card__placename">Кабанский район</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-moscow.jpg" alt="Москва">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Москва</p>
-              <button class="grid-element__like-button"></button>
+          <li class="card">
+            <img class="card__image" src="images/element-moscow.jpg" alt="Москва">
+            <div class="card__panel">
+              <p class="card__placename">Москва</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-stavropol.jpg" alt="Ставропольский край">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Ставропольский край</p>
-              <button class="grid-element__like-button"></button>
+          <li class="card">
+            <img class="card__image" src="images/element-stavropol.jpg" alt="Ставропольский край">
+            <div class="card__panel">
+              <p class="card__placename">Ставропольский край</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-altai.jpg" alt="Алтай">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Алтай</p>
-              <button class="grid-element__like-button"></button>
+          <li class="card">
+            <img class="card__image" src="images/element-altai.jpg" alt="Алтай">
+            <div class="card__panel">
+              <p class="card__placename">Алтай</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
-          <li class="grid-element">
-            <img class="grid-element__pic" src="images/element-kosh-agach.jpg" alt="Кош-Агач">
-            <div class="grid-element__panel grid-element__panel_flex">
-              <p class="grid-element__placename">Кош-Агач</p>
-              <button class="grid-element__like-button"></button>
+          <li class="card">
+            <img class="card__image" src="images/element-kosh-agach.jpg" alt="Кош-Агач">
+            <div class="card__panel">
+              <p class="card__placename">Кош-Агач</p>
+              <button class="card__like-button"></button>
             </div>
           </li>
         </ul>
@@ -77,23 +77,21 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
         <form class="form">
           <div class="form__content">
-            <img class="form__close-icon form__close-icon_popup" src="images/close-icon.svg" alt="Иконка закрытия окна">
-            <p class="form__title">Редактировать профиль</p>
+            <button class="form__close-icon"></button>
+            <h2 class="form__title">Редактировать профиль</h2>
             <fieldset class="form__fieldset">
               <input type="text" class="form__input form__input_element_name" name="username" value="" required>
               <input type="text" class="form__input form__input_element_about" name="user-description" value="" required>
-              <button class="form__button form__button_type_save" type="submit">
-                <span class="form__button-text">Cохранить</span>
-              </button>
+              <button class="form__button" type="submit">Cохранить</button>
             </fieldset>
           </div>
         </form>
       </div>
-    </section>
+    </div>
   </div>
   <script src="scripts/script.js"></script>
 </body>
