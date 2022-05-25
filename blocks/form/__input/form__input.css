@@ -1,4 +1,6 @@
 .form__input {
+  outline: none;
+  box-sizing: border-box;
   width: 100%;
   border: none;
   padding: 10px 5px 12px;
@@ -9,10 +11,6 @@
 
 .form__input:last-of-type {
   margin-bottom: 0;
-}
-
-.form__input:focus {
-  outline-color: #699AFA;
 }
 
 .form__input[value] {
