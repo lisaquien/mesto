@@ -8,20 +8,20 @@
   right: -40px;
 }
       
-.form__close-icon:hover {
+.gallery__close-icon:hover {
   cursor: pointer;
   opacity: 0.6;
 }
       
 @media (max-width: 555px) {
-  .form__close-icon {
+  .gallery__close-icon {
     top: -51px;
     right: 0;
   }
 }
       
 @media (max-width: 425px) {
-  .form__close-icon {
+  .gallery__close-icon {
     background: url(../../../images/close-icon-xs.svg) no-repeat;
     top: -35px;
     right: -10px;
