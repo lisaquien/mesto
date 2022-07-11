@@ -36,6 +36,7 @@
 @import url(../blocks/form/__fieldset/form__fieldset.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__button/form__button.css);
-@import url(../blocks/gallery/__container/gallery__container.css);
+@import url(../blocks/gallery/gallery.css);
+@import url(../blocks/gallery/__close-icon/gallery__close-icon.css);
 @import url(../blocks/gallery/__image/gallery__image.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
