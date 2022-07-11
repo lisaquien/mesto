@@ -3,9 +3,9 @@ const buttonEdit = document.querySelector('.profile__button_type_edit');
 const buttonAdd = document.querySelector('.profile__button_type_add');
 
 // Попапы Редактировать, Добавить и Просмотр (по модификаторам)
-const popupEditProfile = document.querySelector('.popup__edit');
-const popupAddCard = document.querySelector('.popup__add');
-const popupGallery = document.querySelector('.popup__gallery');
+const popupEditProfile = document.querySelector('.popup__type_edit');
+const popupAddCard = document.querySelector('.popup__type_add');
+const popupGallery = document.querySelector('.popup__type_gallery');
 
 // Иконки закрытия для попапов Редактировать, Добавить и Просмотр
 const closepopupEditProfileIcon = popupEditProfile.querySelector('.form__close-icon');
@@ -17,7 +17,7 @@ const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
 // Форма Редактировать + поля Имя и О себе внутри попапа Редактировать
-const formEditProfile = popupEditProfile.querySelector('.form__edit');
+const formEditProfile = popupEditProfile.querySelector('.form__type_edit');
 const inputName = formEditProfile.querySelector('.form__input_element_name');
 const inputAbout = formEditProfile.querySelector('.form__input_element_about');
 
@@ -125,7 +125,7 @@ renderCards();
 
 
 // Селектор формы в попапе Добавить + поля Название и Ссылка
-const formAddCard = document.querySelector('.form__add');
+const formAddCard = document.querySelector('.form__type_add');
 const buttonCreateCard = document.querySelector('.form__button_type_create');
 const placenameAddPopup = formAddCard.querySelector('.form__input_element_placename');
 const linkAddPopup = formAddCard.querySelector('.form__input_element_link');
