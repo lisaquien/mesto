@@ -23,5 +23,8 @@
 @media (max-width: 425px) {
   .form__close-icon {
     background: url(../../../images/close-icon-xs.svg) no-repeat;
+    top: -35px;
+    right: -10px;
+    padding-right: 0;
   }
 }

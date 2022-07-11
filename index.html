@@ -29,57 +29,16 @@
       </section>
       <section class="elements">
         <ul class="cards">
-          <li class="card">
-            <img class="card__image" src="images/element-rostov-on-don.jpg" alt="Ростов-на-Дону">
-            <div class="card__panel">
-              <p class="card__placename">Ростов-на-Дону</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/element-kabansky.jpg" alt="Кабанский район">
-            <div class="card__panel">
-              <p class="card__placename">Кабанский район</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/element-moscow.jpg" alt="Москва">
-            <div class="card__panel">
-              <p class="card__placename">Москва</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/element-stavropol.jpg" alt="Ставропольский край">
-            <div class="card__panel">
-              <p class="card__placename">Ставропольский край</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/element-altai.jpg" alt="Алтай">
-            <div class="card__panel">
-              <p class="card__placename">Алтай</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/element-kosh-agach.jpg" alt="Кош-Агач">
-            <div class="card__panel">
-              <p class="card__placename">Кош-Агач</p>
-              <button class="card__like-button"></button>
-            </div>
-          </li>
+          
         </ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup__edit">
       <div class="popup__container">
-        <form class="form">
+        <form class="form form__edit">
           <div class="form__content">
             <button class="form__close-icon"></button>
             <h2 class="form__title">Редактировать профиль</h2>
@@ -92,7 +51,40 @@
         </form>
       </div>
     </div>
+    <div class="popup popup__add">
+      <div class="popup__container">
+        <form class="form form__add">
+          <div class="form__content">
+            <button class="form__close-icon"></button>
+            <h2 class="form__title">Новое место</h2>
+            <fieldset class="form__fieldset">
+              <input type="text" class="form__input form__input_element_placename" name="username" value="" placeholder="Название">
+              <input type="text" class="form__input form__input_element_link" name="user-description" value="" placeholder="Ссылка на картинку">
+              <button class="form__button form__button_type_create" type="submit">Создать</button>
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup__gallery">
+      <div class="gallery__container">
+        <button class="form__close-icon"></button>
+        <img class="gallery__image" src="">
+        <p class="gallery__name"></p>
+      </div>
+    </div>
   </div>
+  <template class="card-template">
+    <li class="card">
+      <img class="card__image" src="">
+      <div class="card__panel">
+        <p class="card__placename"></p>
+        <button class="card__button card__button_type_like"></button>
+        <button class="card__button card__button_type_remove"></button>
+      </div>
+    </li>
+  </template>
+
   <script src="scripts/script.js"></script>
 </body>
 </html>
