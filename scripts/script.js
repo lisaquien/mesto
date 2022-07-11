@@ -22,7 +22,7 @@ const inputName = formEditProfile.querySelector('.form__input_element_name');
 const inputAbout = formEditProfile.querySelector('.form__input_element_about');
 
 //Универсальная функция, открывающая попап
-function popupOpened(popup) {  
+function popupOpened(popup) {
   return popup.classList.add('popup_opened');
 }
 
