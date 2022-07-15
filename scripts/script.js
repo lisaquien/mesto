@@ -8,8 +8,8 @@ const popupAddCard = document.querySelector('.popup_type_add');
 const popupGallery = document.querySelector('.popup_type_gallery');
 
 // Иконки закрытия для попапов Редактировать, Добавить и Просмотр
-const iconClosePopupEdit = popupEditProfile.querySelector('.form__close-icon');
-const iconClosePopupAdd = popupAddCard.querySelector('.form__close-icon');
+const iconClosePopupEdit = popupEditProfile.querySelector('.popup__close-icon');
+const iconClosePopupAdd = popupAddCard.querySelector('.popup__close-icon');
 const iconClosePopupGallery = popupGallery.querySelector('.gallery__close-icon');
 
 // поля Имя профиля и О себе на странице
