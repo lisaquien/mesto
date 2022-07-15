@@ -9,3 +9,9 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@media (max-width: 420px) {
+  .form__title {
+    font-size: 18px;
+  }
+}
