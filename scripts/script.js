@@ -10,7 +10,7 @@ const popupGallery = document.querySelector('.popup_type_gallery');
 // Иконки закрытия для попапов Редактировать, Добавить и Просмотр
 const iconClosePopupEdit = popupEditProfile.querySelector('.popup__close-icon');
 const iconClosePopupAdd = popupAddCard.querySelector('.popup__close-icon');
-const iconClosePopupGallery = popupGallery.querySelector('.gallery__close-icon');
+const iconClosePopupGallery = popupGallery.querySelector('.popup__close-icon');
 
 // поля Имя профиля и О себе на странице
 const profileName = document.querySelector('.profile__name');
@@ -64,7 +64,7 @@ const initialCards = [
 
 //Универсальная функция, открывающая попап
 function openPopup(popup) {
-  return popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened');
 }
 
 // Сабмит формы попапа Редактировать при сохранении
@@ -77,12 +77,12 @@ function handleEditFormSubmit(evt) {
 
 // Универсальная функция-обработчик, закрывающая попап
 function closePopup(popup) {
-  return popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 // Функция на создание карточки для каждого элемента массива
 function renderCards() {
-  initialCards.forEach(addCard);
+  initialCards.forEach(renderCard);
 }
 
 // Функция на создание карточки
@@ -103,7 +103,12 @@ function addCard(arr) {
     galleryName.textContent = arr.name;
   });
     
-  cardsContainer.prepend(cardElement);
+  return cardElement;
+}
+
+// Функция на добавление карточки вперед списка
+function renderCard(arr) {
+  cardsContainer.prepend(addCard(arr));
 }
 
 renderCards();
@@ -114,7 +119,7 @@ function handleAddFormSubmit(evt) {
   const cardsAdded = {};
   cardsAdded.name = inputPlacename.value;
   cardsAdded.link = inputLink.value;
-  addCard(cardsAdded);
+  renderCard(cardsAdded);
   formAddCard.reset();
   closePopup(popupAddCard);
 }
@@ -151,7 +156,7 @@ buttonAdd.addEventListener('click', function() {
   openPopup(popupAddCard);
 });
 
-// Слушатель сабмита формы
+// Слушатель сабмита формы редактирования профиля
 formEditProfile.addEventListener('submit', handleEditFormSubmit);
 
 // Слушатели клика по иконке Закрыть для всех попапов
@@ -163,6 +168,16 @@ iconClosePopupAdd.addEventListener('click', function() {
 });
 iconClosePopupGallery.addEventListener('click', function() {
   closePopup(popupGallery);
+});
+
+//Слушатель и обработчик нажатия на esc для закрытия попапа
+
+document.addEventListener('keydown', function(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(popupEditProfile);
+    closePopup(popupAddCard);
+    closePopup(popupGallery);
+  }
 });
 
 // Слушатель сабмита добавления карточки
