@@ -38,6 +38,5 @@
 @import url(../blocks/form/__button/form__button.css);
 @import url(../blocks/popup/_type/popup_type_gallery.css);
 @import url(../blocks/gallery/gallery.css);
-@import url(../blocks/gallery/__close-icon/gallery__close-icon.css);
 @import url(../blocks/gallery/__image/gallery__image.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
