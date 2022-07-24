@@ -78,6 +78,10 @@ function handleEditFormSubmit(evt) {
 // Универсальная функция-обработчик, закрывающая попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+
+  if (popup === popupAddCard) {
+    formAddCard.reset();
+  };
 }
 
 // Функция на создание карточки для каждого элемента массива
@@ -116,6 +120,7 @@ renderCards();
 // Обработчик клика по кнопке Создать в п.Добавить
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
+
   const cardsAdded = {};
   cardsAdded.name = inputPlacename.value;
   cardsAdded.link = inputLink.value;
@@ -145,6 +150,19 @@ function setEventListeners(cardElement) {
   buttonElementLike.addEventListener('click', handleLikeCard);
 }
 
+//Функция закрытия попапов кликом на оверлей
+function closePopupOverlay(popup) {
+  popup.addEventListener('mousedown', function(evt) {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    };
+  });
+}
+
+closePopupOverlay(popupEditProfile);
+closePopupOverlay(popupAddCard);
+closePopupOverlay(popupGallery);
+
 // Слушатель и обработчик клика по кнопке Редактировать и Добавить
 buttonEdit.addEventListener('click', function() {
   openPopup(popupEditProfile);
@@ -152,11 +170,15 @@ buttonEdit.addEventListener('click', function() {
   inputAbout.value = profileAbout.textContent;
 });
 
+// Слушатель сабмита добавления карточки
+formAddCard.addEventListener('submit', handleAddFormSubmit);
+
+//Слушатель и обработчик клика по кнопке Добавить
 buttonAdd.addEventListener('click', function() {
   openPopup(popupAddCard);
 });
 
-// Слушатель сабмита формы редактирования профиля
+// Слушатель сабмита формы редактирования профиля 
 formEditProfile.addEventListener('submit', handleEditFormSubmit);
 
 // Слушатели клика по иконке Закрыть для всех попапов
@@ -171,7 +193,6 @@ iconClosePopupGallery.addEventListener('click', function() {
 });
 
 //Слушатель и обработчик нажатия на esc для закрытия попапа
-
 document.addEventListener('keydown', function(evt) {
   if (evt.key === 'Escape') {
     closePopup(popupEditProfile);
@@ -179,6 +200,3 @@ document.addEventListener('keydown', function(evt) {
     closePopup(popupGallery);
   }
 });
-
-// Слушатель сабмита добавления карточки
-formAddCard.addEventListener('submit', handleAddFormSubmit);
