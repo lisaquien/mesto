@@ -16,8 +16,6 @@
 
 Меня зовут Лиза, а проект, который я сверстала в качестве проектной работы, называется "Место".
 
-[]
-
 **О чем**
 
 Проект "Место Russia" представляет собой сервис-галерею для хранения и публикации фотографий, а также взаимодействия с ними. В версии Mesto v3 реализовано следующее:
@@ -28,8 +26,10 @@
 * Просмотр фотографий в увеличенном размере по клику;
 * "Живая" валидация заполняемых полей.
 
-[welcome-screen1.png] [welcome-screen2.png]
-[welcome-screen3.png] [welcome-screen4.png]
+<img width="477" alt="welcome-screen1" src="https://user-images.githubusercontent.com/101216354/180917013-492d785e-4185-46a1-9ff2-39636dd9a558.png">
+<img width="472" alt="welcome-screen2" src="https://user-images.githubusercontent.com/101216354/180917052-ec18c99a-68d5-415c-9ea8-f8c1a9dc754d.png">
+<img width="474" alt="welcome-screen3" src="https://user-images.githubusercontent.com/101216354/180917061-f215098e-eef7-4f84-be4c-e96bcff1efda.png">
+<img width="478" alt="welcome-screen4" src="https://user-images.githubusercontent.com/101216354/180917070-67c97ebf-a76d-4e12-9445-b86dddf12d10.png">
 
 Верстая работу, я задействовала известные мне правила разметки и свойств html и css для создания скелета проекта и его стилизации; css flexbox + css grid для адаптивности; с помощью медиазапросов определила стили на промежуточных брейкпоинтах; применила начальные знания javascript и структур данных и методов работы с ними для реализации интерактивности сервиса. Файлы структурированы по БЭМ nested.
 
