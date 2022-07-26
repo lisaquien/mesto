@@ -9,24 +9,23 @@ const config = {
 };
 
 function showInputError(formElement, inputElement, errorMessage, { inputErrorClass, errorClass }) {
-  const errorElement = formElement.querySelector(`.${ inputElement.id }-error`);
-
-  inputElement.classList.add(inputErrorClass);
-
-
-  //не понимаю в чем может быть ошибка, пожалуйста, намекните, что я упускаю.
-  //дело явно в errorElement. он null, значит, в него ничего не передано,
-  //хотя в интерфейсе подтягивается все, что нужно. буду благодарна за совет.
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(errorClass);
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  
+  if(errorElement) {
+    inputElement.classList.add(inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(errorClass);
+  };
 }
 
 function hideInputError(formElement, inputElement, { inputErrorClass, errorClass }) {
-  const errorElement = formElement.querySelector(`.${ inputElement.id }-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-  errorElement.textContent = '';
+  if(errorElement) {
+    inputElement.classList.remove(inputErrorClass);
+    errorElement.classList.remove(errorClass);
+    errorElement.textContent = '';
+  };
 }
 
 function checkInputValidity(formElement, inputElement, { ...rest }) {
