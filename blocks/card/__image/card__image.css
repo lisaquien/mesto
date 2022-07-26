@@ -9,3 +9,7 @@
 .card__image:hover {
   cursor: pointer;
 }
+
+.card__image[alt] {
+  color: #000;
+}

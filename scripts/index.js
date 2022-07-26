@@ -34,6 +34,9 @@ const formAddCard = document.querySelector('.form_type_add');
 const inputPlacename = formAddCard.querySelector('.form__input_element_placename');
 const inputLink = formAddCard.querySelector('.form__input_element_link');
 
+// Клавиша Esc в переменной (?)
+const escKey = 'Escape';
+
 // Дефолтный массив карточек
 const initialCards = [
   {
@@ -65,6 +68,7 @@ const initialCards = [
 //Универсальная функция, открывающая попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEscape);
 }
 
 // Сабмит формы попапа Редактировать при сохранении
@@ -78,10 +82,7 @@ function handleEditFormSubmit(evt) {
 // Универсальная функция-обработчик, закрывающая попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-
-  if (popup === popupAddCard) {
-    formAddCard.reset();
-  };
+  document.removeEventListener('keydown', closePopupEscape);
 }
 
 // Функция на создание карточки для каждого элемента массива
@@ -90,7 +91,7 @@ function renderCards() {
 }
 
 // Функция на создание карточки
-function addCard(arr) {
+function createCard(arr) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageElement = cardElement.querySelector('.card__image');
   const cardPlacenameElement = cardElement.querySelector('.card__placename');
@@ -98,7 +99,7 @@ function addCard(arr) {
   cardImageElement.src = arr.link;
   cardImageElement.alt = arr.name;
 
-  setEventListeners(cardElement);
+  setCardEventListeners(cardElement);
 
   cardImageElement.addEventListener('click', function() {
     openPopup(popupGallery);
@@ -112,7 +113,7 @@ function addCard(arr) {
 
 // Функция на добавление карточки вперед списка
 function renderCard(arr) {
-  cardsContainer.prepend(addCard(arr));
+  cardsContainer.prepend(createCard(arr));
 }
 
 renderCards();
@@ -126,7 +127,14 @@ function handleAddFormSubmit(evt) {
   cardsAdded.link = inputLink.value;
   renderCard(cardsAdded);
   formAddCard.reset();
+
+  const buttonCreate = formAddCard.querySelector('.form__button_type_create');
+  buttonCreate.setAttribute('disabled', true);
+  buttonCreate.classList.add('form__button_disabled');
+
   closePopup(popupAddCard);
+
+  setinputValidationListeners(formAddCard);
 }
 
 //Функция на удаление карточки
@@ -140,9 +148,9 @@ function handleLikeCard(evt) {
   evt.target.classList.toggle('card__button_type_activeLike');
 }
 
-// Функция-агрегатор слушателей (вызыается в ф на добавление карточки addCard() )
+// Функция-агрегатор слушателей (вызыается в ф на добавление карточки createCard() )
 
-function setEventListeners(cardElement) {
+function setCardEventListeners(cardElement) {
   const buttonElementRemove = cardElement.querySelector('.card__button_type_remove');
   buttonElementRemove.addEventListener('click', handleRemoveCard);
 
@@ -150,18 +158,26 @@ function setEventListeners(cardElement) {
   buttonElementLike.addEventListener('click', handleLikeCard);
 }
 
-//Функция закрытия попапов кликом на оверлей
-function closePopupOverlay(popup) {
+//Функция закрытия попапов кликом на оверлей и на иконку закрытия
+function closePopupOverlay(popup, icon) {
   popup.addEventListener('mousedown', function(evt) {
-    if (evt.target === evt.currentTarget) {
+    if (evt.target === evt.currentTarget && evt.which == 1 || evt.target === icon) {
       closePopup(popup);
     };
   });
 }
 
-closePopupOverlay(popupEditProfile);
-closePopupOverlay(popupAddCard);
-closePopupOverlay(popupGallery);
+closePopupOverlay(popupEditProfile, iconClosePopupEdit);
+closePopupOverlay(popupAddCard, iconClosePopupAdd);
+closePopupOverlay(popupGallery, iconClosePopupGallery);
+
+
+//Слушатель и обработчик нажатия на esc для закрытия попапа
+function closePopupEscape(evt) {
+  if (evt.key === escKey) {
+    closePopup(document.querySelector(".popup_opened"));
+  }
+};
 
 // Слушатель и обработчик клика по кнопке Редактировать и Добавить
 buttonEdit.addEventListener('click', function() {
@@ -180,23 +196,3 @@ buttonAdd.addEventListener('click', function() {
 
 // Слушатель сабмита формы редактирования профиля 
 formEditProfile.addEventListener('submit', handleEditFormSubmit);
-
-// Слушатели клика по иконке Закрыть для всех попапов
-iconClosePopupEdit.addEventListener('click', function() {
-  closePopup(popupEditProfile);
-});
-iconClosePopupAdd.addEventListener('click', function() {
-  closePopup(popupAddCard);
-});
-iconClosePopupGallery.addEventListener('click', function() {
-  closePopup(popupGallery);
-});
-
-//Слушатель и обработчик нажатия на esc для закрытия попапа
-document.addEventListener('keydown', function(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(popupEditProfile);
-    closePopup(popupAddCard);
-    closePopup(popupGallery);
-  }
-});

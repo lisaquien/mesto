@@ -19,11 +19,11 @@
             <div class="profile__description">
               <div class="profile__personal-info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="profile__button profile__button_type_edit"></button>
+                <button class="profile__button profile__button_type_edit" aria-label="Кнопка Редактировать профиль"></button>
               </div>
               <p class="profile__about">Исследователь океана</p>
             </div>
-            <button class="profile__button profile__button_type_add"></button>
+            <button class="profile__button profile__button_type_add" aria-label="Кнопка Добавить фото"></button>
           </div>
         </div>
       </section>
@@ -38,14 +38,14 @@
     </footer>
     <div class="popup popup_type_edit">
       <div class="popup__container">
-        <button class="popup__close-icon"></button>
+        <button class="popup__close-icon" aria-label="Кнопка Закрыть"></button>
         <form class="form form_type_edit" novalidate>
           <div class="form__content">
             <h2 class="form__title">Редактировать профиль</h2>
             <fieldset class="form__fieldset">
-              <input type="text" id="name-input" class="form__input form__input_element_name" name="name" value=" " minlength="2" maxlength="40" required>
+              <input type="text" id="name-input" class="form__input form__input_element_name" name="name" minlength="2" maxlength="40" value=" " required>
               <span class="form__input-error name-input-error"></span>
-              <input type="text" id="description-input" class="form__input form__input_element_about" name="description" value=" " minlength="2" maxlength="200" required>
+              <input type="text" id="description-input" class="form__input form__input_element_about" name="description" minlength="2" maxlength="200" value=" " required>
               <span class="form__input-error description-input-error"></span>
               <button class="form__button form__button_type_edit" type="submit">Cохранить</button>
             </fieldset>
@@ -55,14 +55,14 @@
     </div>
     <div class="popup popup_type_add">
       <div class="popup__container">
-        <button class="popup__close-icon"></button>
+        <button class="popup__close-icon" aria-label="Кнопка Закрыть"></button>
         <form class="form form_type_add" novalidate>
           <div class="form__content">
             <h2 class="form__title">Новое место</h2>
             <fieldset class="form__fieldset">
-              <input type="text" id="placename-input" class="form__input form__input_element_placename" name="placename" value="" placeholder="Название" minlength='2', maxlength='30' required>
+              <input type="text" id="placename-input" class="form__input form__input_element_placename" name="placename" placeholder="Название" minlength='2', maxlength='30' required>
               <span class="form__input-error placename-input-error"></span>
-              <input type="url" id="link-input" class="form__input form__input_element_link" name="placelink" value="" placeholder="Ссылка на картинку" required>
+              <input type="url" id="link-input" class="form__input form__input_element_link" name="placelink" placeholder="Ссылка на картинку" required>
               <span class="form__input-error link-input-error"></span>
               <button class="form__button form__button_type_create" type="submit">Создать</button>
             </fieldset>
@@ -72,23 +72,23 @@
     </div>
     <div class="popup popup_type_gallery">
       <div class="gallery">
-        <button class="popup__close-icon"></button>
-        <img class="gallery__image" src=" " alt=" ">
+        <button class="popup__close-icon" aria-label="Кнопка Закрыть"></button>
+        <img class="gallery__image" src="" alt="">
         <p class="gallery__name"></p>
       </div>
     </div>
   </div>
   <template class="card-template">
     <li class="card">
-      <img class="card__image" src=" " alt=" ">
+      <img class="card__image" src="" alt="">
       <div class="card__panel">
         <p class="card__placename"></p>
-        <button class="card__button card__button_type_like"></button>
-        <button class="card__button card__button_type_remove"></button>
+        <button class="card__button card__button_type_like" aria-label="Кнопка Лайк фото"></button>
+        <button class="card__button card__button_type_remove" aria-label="Кнопка Удалить фото"></button>
       </div>
     </li>
   </template>
   <script src="scripts/index.js"></script>
-  <script src="scripts/validate.js"></script>
+  <script defer src="scripts/validate.js"></script>
 </body>
 </html>
