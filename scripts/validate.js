@@ -9,18 +9,23 @@ const config = {
 };
 
 function showInputError(formElement, inputElement, errorMessage, { inputErrorClass, errorClass }) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${ inputElement.id }-error`);
 
   inputElement.classList.add(inputErrorClass);
+
+
+  //не понимаю в чем может быть ошибка, пожалуйста, намекните, что я упускаю.
+  //дело явно в errorElement. он null, значит, в него ничего не передано,
+  //хотя в интерфейсе подтягивается все, что нужно. буду благодарна за совет.
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
 }
 
 function hideInputError(formElement, inputElement, { inputErrorClass, errorClass }) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${ inputElement.id }-error`);
 
   inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);  
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 }
 
@@ -33,13 +38,11 @@ function checkInputValidity(formElement, inputElement, { ...rest }) {
 }
 
 function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
+  return inputList.some(inputElement => !inputElement.validity.valid);
 }
   
 function toggleSubmitButtonState(inputList, buttonElement, { inactiveButtonClass }) {
-  if(hasInvalidInput(inputList)) {
+  if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(inactiveButtonClass);
   } else {
@@ -48,31 +51,27 @@ function toggleSubmitButtonState(inputList, buttonElement, { inactiveButtonClass
   }
 }
 
-function inputValidationListeners(formElement, { inputSelector, submitButtonSelector, ...rest }) {
-  const inputList = Array.from(document.querySelectorAll(inputSelector));
+function setinputValidationListeners(formElement, { inputSelector, submitButtonSelector, ...rest }) {
+  const inputList = Array.from(document.querySelectorAll(inputSelector)); //конвертация в массив из-за some() в ф-и hasInvalidInput()
   const buttonElement = formElement.querySelector(submitButtonSelector);
   
   toggleSubmitButtonState(inputList, buttonElement, rest);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {
-        checkInputValidity(formElement, inputElement, rest);
-        toggleSubmitButtonState(inputList, buttonElement, rest);
-      });
+      checkInputValidity(formElement, inputElement, rest);
+      toggleSubmitButtonState(inputList, buttonElement, rest);
+    });
   });
 }
 
 function enableValidation({ formSelector, fieldsetSelector, ...rest }) {
-  const formList = Array.from(document.querySelectorAll(formSelector));
+  const formList = document.querySelectorAll(formSelector);
 
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function(evt) {
-      evt.preventDefault();
-    });
-
-    const fieldsetList = Array.from(formElement.querySelectorAll(fieldsetSelector));
+    const fieldsetList = formElement.querySelectorAll(fieldsetSelector);
     fieldsetList.forEach((fieldsetElement) => {
-      inputValidationListeners(fieldsetElement, rest);
+      setinputValidationListeners(fieldsetElement, rest);
     });
   });
 }
