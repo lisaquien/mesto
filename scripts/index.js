@@ -68,12 +68,13 @@ const initialCards = [
 //Универсальная функция, открывающая попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEscape);
+  document.addEventListener('keydown', closePopupOnEscape);
 }
 
 // Сабмит формы попапа Редактировать при сохранении
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
   closePopup(popupEditProfile);
@@ -82,7 +83,7 @@ function handleEditFormSubmit(evt) {
 // Универсальная функция-обработчик, закрывающая попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEscape);
+  document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 // Функция на создание карточки для каждого элемента массива
@@ -133,8 +134,6 @@ function handleAddFormSubmit(evt) {
   buttonCreate.classList.add('form__button_disabled');
 
   closePopup(popupAddCard);
-
-  setinputValidationListeners(formAddCard);
 }
 
 //Функция на удаление карточки
@@ -173,7 +172,7 @@ closePopupOverlay(popupGallery, iconClosePopupGallery);
 
 
 //Слушатель и обработчик нажатия на esc для закрытия попапа
-function closePopupEscape(evt) {
+function closePopupOnEscape(evt) {
   if (evt.key === escKey) {
     closePopup(document.querySelector(".popup_opened"));
   }
@@ -184,6 +183,10 @@ buttonEdit.addEventListener('click', function() {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
+
+  const buttonSave = formEditProfile.querySelector('.form__button_type_edit');
+  buttonSave.removeAttribute('disabled');
+  buttonSave.classList.remove('form__button_disabled');
 });
 
 // Слушатель сабмита добавления карточки

@@ -11,7 +11,7 @@ const config = {
 function showInputError(formElement, inputElement, errorMessage, { inputErrorClass, errorClass }) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   
-  if(errorElement) {
+  if (errorElement) {
     inputElement.classList.add(inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(errorClass);
@@ -21,7 +21,7 @@ function showInputError(formElement, inputElement, errorMessage, { inputErrorCla
 function hideInputError(formElement, inputElement, { inputErrorClass, errorClass }) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  if(errorElement) {
+  if (errorElement) {
     inputElement.classList.remove(inputErrorClass);
     errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
@@ -50,7 +50,7 @@ function toggleSubmitButtonState(inputList, buttonElement, { inactiveButtonClass
   }
 }
 
-function setinputValidationListeners(formElement, { inputSelector, submitButtonSelector, ...rest }) {
+function setInputValidationListeners(formElement, { inputSelector, submitButtonSelector, ...rest }) {
   const inputList = Array.from(document.querySelectorAll(inputSelector)); //конвертация в массив из-за some() в ф-и hasInvalidInput()
   const buttonElement = formElement.querySelector(submitButtonSelector);
   
@@ -70,7 +70,7 @@ function enableValidation({ formSelector, fieldsetSelector, ...rest }) {
   formList.forEach((formElement) => {
     const fieldsetList = formElement.querySelectorAll(fieldsetSelector);
     fieldsetList.forEach((fieldsetElement) => {
-      setinputValidationListeners(fieldsetElement, rest);
+      setInputValidationListeners(fieldsetElement, rest);
     });
   });
 }
