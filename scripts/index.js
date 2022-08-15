@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // кнопки Редактировать и Добавить на странице
 const buttonEdit = document.querySelector('.profile__button_type_edit');
 const buttonAdd = document.querySelector('.profile__button_type_add');
@@ -23,7 +26,7 @@ const inputAbout = formEditProfile.querySelector('.form__input_element_about');
 
 // Блок-контейнер для карточек + содержимое темплейта-карточки
 const cardsContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('.card-template').content;
+const cardTemplate = document.querySelector('.card-template');
 
 // Поля Изображения и Названия места в Просмотре
 const galleryImage = document.querySelector('.gallery__image');
@@ -34,7 +37,7 @@ const formAddCard = document.querySelector('.form_type_add');
 const inputPlacename = formAddCard.querySelector('.form__input_element_placename');
 const inputLink = formAddCard.querySelector('.form__input_element_link');
 
-// Клавиша Esc в переменной (?)
+// Клавиша Esc в переменной
 const escKey = 'Escape';
 
 // Дефолтный массив карточек
@@ -65,6 +68,34 @@ const initialCards = [
   },
 ];
 
+// Объект конфигурации для валидации полей попапов
+const config = {
+  formSelector: '.form',
+  fieldsetSelector: '.form__fieldset',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
+};
+
+// Функция для отрисовки карточек из дефолтного массива initialCards
+function render(elems) {
+  elems.forEach(el => {
+    cardsContainer.append(new Card({name: el.name, link: el.link}, cardTemplate).createCard());
+  });
+}
+
+render(initialCards);
+
+// Методы вызова валидации для попапов
+const formEditValidation = new FormValidator(config, formEditProfile);
+formEditValidation.enableValidation();
+
+const formAddValidation = new FormValidator(config, formAddCard);
+formAddValidation.enableValidation();
+
+
 //Универсальная функция, открывающая попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -86,47 +117,13 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupOnEscape);
 }
 
-// Функция на создание карточки для каждого элемента массива
-function renderCards() {
-  initialCards.forEach(renderCard);
-}
-
-// Функция на создание карточки
-function createCard(arr) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageElement = cardElement.querySelector('.card__image');
-  const cardPlacenameElement = cardElement.querySelector('.card__placename');
-  cardPlacenameElement.textContent = arr.name;
-  cardImageElement.src = arr.link;
-  cardImageElement.alt = arr.name;
-
-  setCardEventListeners(cardElement);
-
-  cardImageElement.addEventListener('click', function() {
-    openPopup(popupGallery);
-    galleryImage.src = arr.link;
-    galleryImage.alt = arr.name;
-    galleryName.textContent = arr.name;
-  });
-    
-  return cardElement;
-}
-
-// Функция на добавление карточки вперед списка
-function renderCard(arr) {
-  cardsContainer.prepend(createCard(arr));
-}
-
-renderCards();
-
 // Обработчик клика по кнопке Создать в п.Добавить
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
-  const cardsAdded = {};
-  cardsAdded.name = inputPlacename.value;
-  cardsAdded.link = inputLink.value;
-  renderCard(cardsAdded);
+  const cardsAdded = new Card({name: inputPlacename.value, link: inputLink.value}, cardTemplate);
+  cardsContainer.prepend(cardsAdded.createCard());
+
   formAddCard.reset();
 
   const buttonCreate = formAddCard.querySelector('.form__button_type_create');
@@ -136,28 +133,7 @@ function handleAddFormSubmit(evt) {
   closePopup(popupAddCard);
 }
 
-//Функция на удаление карточки
-function handleRemoveCard(evt) {
-  evt.target.closest('.card').remove();
-}
-
-
-//Функция на лайк карточки
-function handleLikeCard(evt) {
-  evt.target.classList.toggle('card__button_type_activeLike');
-}
-
-// Функция-агрегатор слушателей (вызыается в ф на добавление карточки createCard() )
-
-function setCardEventListeners(cardElement) {
-  const buttonElementRemove = cardElement.querySelector('.card__button_type_remove');
-  buttonElementRemove.addEventListener('click', handleRemoveCard);
-
-  const buttonElementLike = cardElement.querySelector('.card__button_type_like');
-  buttonElementLike.addEventListener('click', handleLikeCard);
-}
-
-//Функция закрытия попапов кликом на оверлей и на иконку закрытия
+// Функция закрытия попапов кликом на оверлей и на иконку закрытия
 function closePopupOverlay(popup, icon) {
   popup.addEventListener('mousedown', function(evt) {
     if (evt.target === evt.currentTarget && evt.which == 1 || evt.target === icon) {
@@ -171,7 +147,7 @@ closePopupOverlay(popupAddCard, iconClosePopupAdd);
 closePopupOverlay(popupGallery, iconClosePopupGallery);
 
 
-//Слушатель и обработчик нажатия на esc для закрытия попапа
+// Слушатель и обработчик нажатия на esc для закрытия попапа
 function closePopupOnEscape(evt) {
   if (evt.key === escKey) {
     closePopup(document.querySelector(".popup_opened"));
@@ -189,13 +165,15 @@ buttonEdit.addEventListener('click', function() {
   buttonSave.classList.remove('form__button_disabled');
 });
 
-// Слушатель сабмита добавления карточки
-formAddCard.addEventListener('submit', handleAddFormSubmit);
+// Слушатель сабмита формы редактирования профиля 
+formEditProfile.addEventListener('submit', handleEditFormSubmit);
 
 //Слушатель и обработчик клика по кнопке Добавить
 buttonAdd.addEventListener('click', function() {
   openPopup(popupAddCard);
 });
 
-// Слушатель сабмита формы редактирования профиля 
-formEditProfile.addEventListener('submit', handleEditFormSubmit);
+// Слушатель сабмита добавления карточки
+formAddCard.addEventListener('submit', handleAddFormSubmit);
+
+export { openPopup, popupGallery, galleryImage, galleryName };
