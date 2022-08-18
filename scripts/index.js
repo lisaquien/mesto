@@ -26,7 +26,6 @@ const inputAbout = formEditProfile.querySelector('.form__input_element_about');
 
 // Блок-контейнер для карточек + содержимое темплейта-карточки
 const cardsContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('.card-template');
 
 // Поля Изображения и Названия места в Просмотре
 const galleryImage = document.querySelector('.gallery__image');
@@ -36,9 +35,6 @@ const galleryName = document.querySelector('.gallery__name');
 const formAddCard = document.querySelector('.form_type_add');
 const inputPlacename = formAddCard.querySelector('.form__input_element_placename');
 const inputLink = formAddCard.querySelector('.form__input_element_link');
-
-// Клавиша Esc в переменной
-const escKey = 'Escape';
 
 // Дефолтный массив карточек
 const initialCards = [
@@ -80,9 +76,10 @@ const config = {
 };
 
 // Функция для отрисовки карточек из дефолтного массива initialCards
+
 function render(elems) {
   elems.forEach(el => {
-    cardsContainer.append(new Card({name: el.name, link: el.link}, cardTemplate).createCard());
+    cardsContainer.append(new Card({name: el.name, link: el.link}, '.card-template', openGalleryPopup).createCard());
   });
 }
 
@@ -108,6 +105,7 @@ function handleEditFormSubmit(evt) {
 
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
+
   closePopup(popupEditProfile);
 }
 
@@ -121,14 +119,12 @@ function closePopup(popup) {
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
-  const cardsAdded = new Card({name: inputPlacename.value, link: inputLink.value}, cardTemplate);
+  const cardsAdded = new Card({name: inputPlacename.value, link: inputLink.value}, '.card-template', openGalleryPopup);
   cardsContainer.prepend(cardsAdded.createCard());
 
   formAddCard.reset();
 
-  const buttonCreate = formAddCard.querySelector('.form__button_type_create');
-  buttonCreate.setAttribute('disabled', true);
-  buttonCreate.classList.add('form__button_disabled');
+  formAddValidation.enableValidation();
 
   closePopup(popupAddCard);
 }
@@ -149,7 +145,7 @@ closePopupOverlay(popupGallery, iconClosePopupGallery);
 
 // Слушатель и обработчик нажатия на esc для закрытия попапа
 function closePopupOnEscape(evt) {
-  if (evt.key === escKey) {
+  if (evt.key === 'Escape') {
     closePopup(document.querySelector(".popup_opened"));
   }
 };
@@ -157,12 +153,11 @@ function closePopupOnEscape(evt) {
 // Слушатель и обработчик клика по кнопке Редактировать и Добавить
 buttonEdit.addEventListener('click', function() {
   openPopup(popupEditProfile);
+
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
 
-  const buttonSave = formEditProfile.querySelector('.form__button_type_edit');
-  buttonSave.removeAttribute('disabled');
-  buttonSave.classList.remove('form__button_disabled');
+  formEditValidation.enableValidation();
 });
 
 // Слушатель сабмита формы редактирования профиля 
@@ -176,4 +171,9 @@ buttonAdd.addEventListener('click', function() {
 // Слушатель сабмита добавления карточки
 formAddCard.addEventListener('submit', handleAddFormSubmit);
 
-export { openPopup, popupGallery, galleryImage, galleryName };
+function openGalleryPopup(name, link) {
+  galleryImage.src = link;
+  galleryImage.alt = name;
+  galleryName.textContent = name;
+  openPopup(popupGallery);
+}

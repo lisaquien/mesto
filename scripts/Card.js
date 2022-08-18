@@ -1,37 +1,35 @@
-import { openPopup, popupGallery, galleryImage, galleryName } from './index.js';
-
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openGalleryPopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._openGalleryPopup = openGalleryPopup;
   };
   
   // Метод получения шаблона разметки карточки
-  //const cardTemplate = document.querySelector('.card-template'); 
   _getTemplate() {
-    const cardElement = this._templateSelector.content.querySelector('.card').cloneNode(true);
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
     
     return cardElement;
   }
   
   //Метод удаления карточки
-  _handleRemoveCard(evt) {
-    evt.target.closest('.card').remove();
+  _handleRemoveCard() {
+    this._element.remove();
   }
   
   //Метод лайка карточки
-  _handleLikeCard(evt) {
-    evt.target.classList.toggle('card__button_type_activeLike');
+  _handleLikeCard() {
+    this._buttonElementLike.classList.toggle('card__button_type_activeLike');
   }
   
   // Метод-агрегатор слушателей удаления и лайка (вызыается в методе _createCard() )
   _setCardEventListeners() {
-    const buttonElementRemove = this._element.querySelector('.card__button_type_remove');
-    buttonElementRemove.addEventListener('click', this._handleRemoveCard);
+    this._buttonElementRemove = this._element.querySelector('.card__button_type_remove');
+    this._buttonElementRemove.addEventListener('click', () => this._handleRemoveCard());
     
-    const buttonElementLike = this._element.querySelector('.card__button_type_like');
-    buttonElementLike.addEventListener('click', this._handleLikeCard);
+    this._buttonElementLike = this._element.querySelector('.card__button_type_like');
+    this._buttonElementLike.addEventListener('click', () => this._handleLikeCard());
   }
 
   // Метод заполнения шаблона карточки данными
@@ -44,11 +42,9 @@ export default class Card {
     
     this._setCardEventListeners(this._element);
     
-    this._element.querySelector('.card__image').addEventListener('click', () => {
-      openPopup(popupGallery);
-      galleryImage.src = this._link;
-      galleryImage.alt = this._name;
-      galleryName.textContent = this._name;
+    this._cardImage = this._element.querySelector('.card__image');
+    this._cardImage.addEventListener('click', () => {
+      this._openGalleryPopup(this._name, this._link);
     });
       
     return this._element;
