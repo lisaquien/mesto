@@ -75,23 +75,33 @@ const config = {
   errorClass: 'form__input-error_active',
 };
 
-// Функция для отрисовки карточек из дефолтного массива initialCards
-
-function render(elems) {
-  elems.forEach(el => {
-    cardsContainer.append(new Card({name: el.name, link: el.link}, '.card-template', openGalleryPopup).createCard());
+// Функция для отрисовки карточек и доавления их в разметку из передаваемого массива
+function renderCards(arr) {
+  arr.forEach(element => {
+    const card = createCard({name: element.name, link: element.link});
+    addCard(card);
   });
 }
 
-render(initialCards);
+// Функция для добавления карточки в разметку
+function addCard(item) {
+  cardsContainer.append(item);
+}
 
-// Методы вызова валидации для попапов
+//Функция для создания карточки
+function createCard(data) {
+  const newCard = new Card(data, '.card-template', openGalleryPopup);
+  return newCard.createCard();
+}
+
+renderCards(initialCards);
+
+//Методы вызова валидации для попапов
 const formEditValidation = new FormValidator(config, formEditProfile);
 formEditValidation.enableValidation();
 
 const formAddValidation = new FormValidator(config, formAddCard);
 formAddValidation.enableValidation();
-
 
 //Универсальная функция, открывающая попап
 function openPopup(popup) {
@@ -119,14 +129,20 @@ function closePopup(popup) {
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
-  const cardsAdded = new Card({name: inputPlacename.value, link: inputLink.value}, '.card-template', openGalleryPopup);
-  cardsContainer.prepend(cardsAdded.createCard());
+  const cardsAdded = createCard({name: inputPlacename.value, link: inputLink.value});
+  cardsContainer.prepend(cardsAdded);
 
   formAddCard.reset();
 
-  formAddValidation.enableValidation();
-
   closePopup(popupAddCard);
+}
+
+// Функция, открывающая попап с фотографией
+function openGalleryPopup(name, link) {
+  galleryImage.src = link;
+  galleryImage.alt = name;
+  galleryName.textContent = name;
+  openPopup(popupGallery);
 }
 
 // Функция закрытия попапов кликом на оверлей и на иконку закрытия
@@ -156,8 +172,8 @@ buttonEdit.addEventListener('click', function() {
 
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
-
-  formEditValidation.enableValidation();
+  
+  formEditValidation.resetValidation();
 });
 
 // Слушатель сабмита формы редактирования профиля 
@@ -166,14 +182,9 @@ formEditProfile.addEventListener('submit', handleEditFormSubmit);
 //Слушатель и обработчик клика по кнопке Добавить
 buttonAdd.addEventListener('click', function() {
   openPopup(popupAddCard);
+
+  formAddValidation.resetValidation();
 });
 
 // Слушатель сабмита добавления карточки
 formAddCard.addEventListener('submit', handleAddFormSubmit);
-
-function openGalleryPopup(name, link) {
-  galleryImage.src = link;
-  galleryImage.alt = name;
-  galleryName.textContent = name;
-  openPopup(popupGallery);
-}
