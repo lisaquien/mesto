@@ -30,22 +30,23 @@ export default class Card {
     
     this._buttonElementLike = this._element.querySelector('.card__button_type_like');
     this._buttonElementLike.addEventListener('click', () => this._handleLikeCard());
+
+    this._cardImage.addEventListener('click', () => {
+      this._openGalleryPopup(this._name, this._link);
+    });
   }
 
   // Метод заполнения шаблона карточки данными
   createCard = () => {
     this._element = this._getTemplate();
+
+    this._cardImage = this._element.querySelector('.card__image');
     
-    this._element.querySelector('.card__image').src = this._link;
-    this._element.querySelector('.card__image').alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.card__placename').textContent = this._name;
     
     this._setCardEventListeners(this._element);
-    
-    this._cardImage = this._element.querySelector('.card__image');
-    this._cardImage.addEventListener('click', () => {
-      this._openGalleryPopup(this._name, this._link);
-    });
       
     return this._element;
   }
